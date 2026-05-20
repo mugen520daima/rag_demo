@@ -1,5 +1,12 @@
-#基于Stremlit完成WEB网页上传服务
+"""
+基于Stremlit完成WEB网页上传服务
+sk-b7840b7b2fb24e51a2d31c79f3b087f3
+streamlit run /Users/weller/ComateProjects/comate-zulu-demo-1779097104501/agent/app_file_uploader.py
+Streamlit: 当web页面元素发生变化，则代码重新执行一遍，会导致状态的丢失，官方提供了一个session state机制。
+"""
+import time
 import streamlit as st
+from knowledge_base import KnowledgeBaseService
 
 
 #添加网页标题
@@ -11,6 +18,10 @@ uploader_file = st.file_uploader(
     type=["txt"],
     accept_multiple_files=False,   #false表示一次只能上传一个文件
 )
+
+#session_state就是一个字典，该参数不会随着页面刷新而刷新
+if "service" not in st.session_state:
+    st.session_state["service"] = KnowledgeBaseService()  #这样就能实现类对象只创建一次
 
 if uploader_file is not None:
     #获取文件信息
@@ -24,3 +35,8 @@ if uploader_file is not None:
     #getvalue -> bytes -> decode('utf-8)
     text = uploader_file.getvalue().decode('utf-8')
     st.write(text)
+
+    with st.spinner("载入知识库中。。。"):
+        time.sleep(1)
+        res = st.session_state["service"].upload_by_str(text, file_name)
+        st.write(res)

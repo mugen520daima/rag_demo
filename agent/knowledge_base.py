@@ -38,11 +38,14 @@ def get_string_md5(input_str,encoding='utf-8'):
     return md5_hex
 
 class KnowledgeBaseService(object):
-    def __init__(self): 
+    def __init__(self):
         os.makedirs(config.persist_directory, exist_ok=True)
         self.chroma = Chroma(
             collection_name=config.collection_name, #数据库的表名
-            embedding_function=DashScopeEmbeddings(model="text-embedding-v1") ,
+            embedding_function=DashScopeEmbeddings(
+                model="text-embedding-v1",
+                dashscope_api_key=config.dashscope_api_key
+            ),
             persist_directory=config.persist_directory
         ) #向量存储的实例 Chroma向量库对象
         self.spliter = RecursiveCharacterTextSplitter(

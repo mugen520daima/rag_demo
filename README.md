@@ -31,6 +31,7 @@
    │
    ▼
 保存到对话历史 → 返回给用户
+
 技术栈
 Python 3.13
 LangChain — RAG 链路编排、对话管理
@@ -38,12 +39,8 @@ Streamlit — Web 聊天界面
 ChromaDB — 本地向量数据库
 DashScope — 通义千问 Embedding 与 Chat 模型
 File-based History — JSON 文件持久化多轮对话
+
 项目结构
-text
-
-插入
-
-复制
 agent/
 ├── rag.py                 # RAG 核心链路（检索 + Prompt 组装 + LLM）
 ├── knowledge_base.py      # 知识库服务（文档向量化入库）
@@ -53,6 +50,7 @@ agent/
 ├── config_data.py         # 配置项（模型名、API Key、分割参数等）
 └── data/
     └── 尺码推荐.txt        # 示例知识库文档
+
 快速开始
 安装依赖
 
@@ -82,3 +80,4 @@ bash
 
 复制
 streamlit run agent/app_qa.py
+在浏览器打开页面，上传知识库文档后即可开始对话。

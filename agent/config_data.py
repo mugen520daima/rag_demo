@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 md5_path = "./md5.text"
 
@@ -22,4 +24,4 @@ similarity_threshold = 1
 
 embedding_model_name = "text-embedding-v1"
 chat_model_name = "qwen3-max"
-api_key = "sk-b7840b7b2fb24e51a2d31c79f3b087f3"
+api_key = os.environ.get("DASHSCOPE_API_KEY", "")
